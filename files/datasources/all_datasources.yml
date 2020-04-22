@@ -1,0 +1,55 @@
+apiVersion: 1
+
+datasources:
+- name: ZABBIX-DATASOURCE
+  type: alexanderzobnin-zabbix-datasource
+  access: proxy
+  url: http://10.1.253.0/zabbix/api_jsonrpc.php
+  isDefault: true
+  jsonData:
+    username: admin
+    password: zabbix
+    trends: false
+    trendsFrom: "7d"
+    trendsRange: "4d"
+    cacheTTL: "1h"
+    alerting: false
+    addThresholds: false
+    alertingMinSeverity: 3
+    disableReadOnlyUsersAck: false
+    dbConnectionEnable: false
+    dbConnectionDatasourceName: MySQL Zabbix
+    dbConnectionRetentionPolicy: one_year
+  version: 1
+  editable: false
+
+#- name: MySQL Zabbix
+#  type: mysql
+#  url: localhost:3306
+#  database: zabbix
+#  user: zabbix
+#  password: password
+
+- name: PROMETHEUS-DATASOURCE
+  type: prometheus
+  access: proxy
+  orgId: 1
+  url: http://prometheus:9090
+  password: 1q2w3e
+  user: grafana
+  database: prometheus
+  basicAuth: false
+  basicAuthUser:
+  basicAuthPassword:
+  withCredentials:
+  isDefault: false
+  jsonData:
+     graphiteVersion: "1.1"
+     tlsAuth: false
+     tlsAuthWithCACert: false
+  secureJsonData:
+    tlsCACert: "..."
+    tlsClientCert: "..."
+    tlsClientKey: "..."
+  version: 1
+  editable: true
